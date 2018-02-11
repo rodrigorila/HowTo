@@ -1,0 +1,17 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+    <p>
+        Cargando...
+    </p>
+{% endblock %}
+
+{% block scripts %}
+    {{super()}}
+
+    <script>
+        $(function(){
+            window.location.href = "/main";
+        });
+    </script>
+{% endblock %}

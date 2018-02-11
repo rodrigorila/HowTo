@@ -1,0 +1,10 @@
+.panel li, div p {
+    padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .panel p img {
+        max-width: 85%;
+    }
+}

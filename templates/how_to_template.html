@@ -1,0 +1,87 @@
+{%- extends "bootstrap/base.html" %}
+
+{%- block styles %}
+{{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/how_to_template.css')}}">
+{%- endblock %}
+
+{%- block content %}
+    <div class="jumbotron text-center">
+        <h1>{{ how_to.heading }}</h1>
+        <p>{{ how_to.title }}</p>
+    </div>
+
+    <ol>
+        {%- for bl in how_to.blocks %}
+        <div {% if bl.has_details -%}
+             class="panel panel-primary"
+             data-toggle="collapse"
+             data-target="#details_{{ loop.index0 }}"
+             {%- else -%}
+             class="panel panel-default"
+             {%- endif %}>
+            {#- <a href="#"
+                   class="close"
+                   data-toggle="collapse"
+                   data-target="#image_2"
+                   aria-label="close">
+                    <span style="padding: 10px;" class="glyphicon glyphicon-remove"></span>
+                </a> #}
+            {%- for itm in bl.items %}
+            <li>
+                {%- autoescape false %}
+                {{ highlighted_text(itm) }}
+                {%- endautoescape %}
+            </li>
+            {%- endfor %}
+            {#- <p class="alert alert-warning">
+            <strong><span class="glyphicon glyphicon-warning-sign"> </span></strong>
+            El limón marcado con 8 números debe rotar 1.2 veces aproximadamente. Eso quiere decir que la primera y a ultima fotografía deben tener los mismos números.
+            </p> #}
+            {%- if bl.has_details %}
+            <div id="details_{{ loop.index0 }}" class="collapse">
+                {%- for dtl in bl.details %}
+
+                {%- if dtl.type == 'image' %}
+                <p>
+                    <img width="100%" src="{{ dtl.value }}" class="img-thumbnail" alt="{{ dtl.value }}">
+                </p>
+                {%- endif %}
+
+                {%- if dtl.type == 'text' %}
+                <p>
+                    {%- autoescape false %}
+                    {{ highlighted_text(dtl.value) }}
+                    {%- endautoescape %}
+                </p>
+                {%- endif %}
+
+                {%- if dtl.type == 'warning' %}
+                <p class="alert alert-warning">
+                    <strong><span class="glyphicon glyphicon-warning-sign"> </span></strong>
+                    {%- autoescape false %}
+                    {{ highlighted_text(dtl.value) }}
+                    {%- endautoescape %}
+                </p>
+                {%- endif %}
+
+                {%- endfor %}
+            </div>
+
+            {%- endif %}
+        </div>
+        {%- endfor %}
+    </ol>
+{%- endblock %}
+
+{%- block scripts %}
+{{super()}}
+    <script>
+        $(document).ready(function(){
+            $("#img1").click() {
+                //glyphicon glyphicon-eye-open
+                //glyphicon glyphicon-remove-circle
+            };
+        });
+    </script>
+{%- endblock %}
