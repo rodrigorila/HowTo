@@ -1,3 +1,5 @@
+# coding=UTF-8
+
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from how_to import HowTo
@@ -5,6 +7,8 @@ from how_to import HowTo
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+Bootstrap(app)
+HowTo.init_app(app)
 
 @app.route("/how_to_calibrate", methods=['GET'])
 def how_to_calibrate():
@@ -50,6 +54,4 @@ def welcome():
 
 
 if __name__ == "__main__":
-    Bootstrap(app)
-    HowTo.init_app(app)
     app.run()
