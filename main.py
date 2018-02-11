@@ -12,7 +12,7 @@ HowTo.init_app(app)
 
 @app.route("/how_to_calibrate", methods=['GET'])
 def how_to_calibrate():
-    h = HowTo("Lemonscan 5", "Manual de Calibración")
+    h = HowTo(u"Lemonscan 5", u"Manual de Calibración")
 
     h.block([
         u"Preparar un limón marcado con números, uno por octante",
@@ -32,9 +32,9 @@ def how_to_calibrate():
         ])\
         .image("01.png") \
         .text(
-        "El limón marcado con 8 números debe rotar 1.2 veces aproximadamente. "
-        "Eso quiere decir que la primera y la última fotografía deben tener los "
-        "mismos números") \
+        u"El limón marcado con 8 números debe rotar 1.2 veces aproximadamente. "
+        u"Eso quiere decir que la primera y la última fotografía deben tener los "
+        u"mismos números") \
 
     h.block([
         u"Iniciar el equipo",
