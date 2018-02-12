@@ -2,17 +2,6 @@
     padding: 10px;
 }
 
-ol {
-    margin: 0px;
-
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 10px;
-    -webkit-padding-end: 10px;
-
-}
 
 ol button {
     padding: 1ex 5ex 1ex 5ex;

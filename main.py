@@ -1,6 +1,6 @@
 # coding=UTF-8
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from how_to import HowTo
 
@@ -10,8 +10,35 @@ app.config.from_object(__name__)
 Bootstrap(app)
 HowTo.init_app(app)
 
+
+def use_button():
+	# import re
+
+	# version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
+	# platform = request.user_agent.platform
+	# uas = request.user_agent.string
+
+    browser = request.user_agent.browser
+
+    return (browser == 'chrome') or (browser == 'safari')
+
+
+	# if browser and version:
+	# 	if (browser == 'msie' and version < 9) \
+     #    or (browser == 'firefox' and version < 4) \
+     #    or (platform == 'android' and browser == 'safari' and version < 534) \
+     #    or (platform == 'iphone' and browser == 'safari' and version < 7000) \
+     #    or ((platform == 'macos' or platform == 'windows') and browser == 'safari' and not re.search('Mobile', uas) and version < 534) \
+     #    or (re.search('iPad', uas) and browser == 'safari' and version < 7000) \
+     #    or (platform == 'windows' and re.search('Windows Phone OS', uas)) \
+     #    or (browser == 'opera') \
+     #    or (re.search('BlackBerry', uas)):
+     #                return render_template('unsupported.html')
+
+
 @app.route("/how_to_calibrate", methods=['GET'])
 def how_to_calibrate():
+
     h = HowTo(u"Lemonscan 5", u"Manual de Calibración")
 
     h.block([
@@ -40,7 +67,7 @@ def how_to_calibrate():
         u"Iniciar el equipo",
         ])
 
-    return render_template('how_to_template.html', how_to=h)
+    return render_template('how_to_template.html', how_to=h, use_button=use_button())
 
 
 @app.route("/main", methods=['GET'])

@@ -16,72 +16,83 @@
 {%- endblock %}
 
 {%- block content %}
+    {%- macro generate_items(items_list) -%}
+        {%- for itm in items_list %}
+        <li>
+            {%- autoescape false %}
+            {{ highlighted_text(itm) }}
+            {%- endautoescape %}
+        </li>
+        {% endfor -%}
+    {%- endmacro -%}
+
+    {%- macro generate_details(details_list, block_id) -%}
+        <div id="details_{{ block_id }}" class="collapse">
+        {%- for dtl in details_list %}
+
+            {%- if dtl.type == 'image' %}
+            <p>
+                <img width="100%" data-src="{{ dtl.value }}" class="img-thumbnail" alt="{{ dtl.value }}">
+            </p>
+            {%- endif %}
+
+            {%- if dtl.type == 'text' %}
+            <p>
+                {%- autoescape false %}
+                {{ highlighted_text(dtl.value) }}
+                {%- endautoescape %}
+            </p>
+            {%- endif %}
+
+            {%- if dtl.type == 'warning' %}
+            <p class="alert alert-warning">
+                <strong><span class="glyphicon glyphicon-warning-sign"> </span></strong>
+                {%- autoescape false %}
+                {{ highlighted_text(dtl.value) }}
+                {%- endautoescape %}
+            </p>
+            {%- endif %}
+
+        {%- endfor %}
+        </div>
+    {%- endmacro -%}
+
+    {%- macro generate_block(block, block_id) -%}
+        {{ generate_items(block.items) }}
+
+        {%- if block.has_details %}
+            {{ generate_details(block.details, block_id) }}
+        {%- endif %}
+    {%- endmacro -%}
+
+    {%- macro generate_block_list_container_attributes(block, block_id) -%}
+        {%- if block.has_details -%}
+            class="panel panel-primary"
+            data-toggle="collapse"
+            data-target="#details_{{ block_id }}"
+        {%- else -%}
+            class="panel panel-default"
+        {%- endif -%}
+    {%- endmacro -%}
+
     <div class="container bg-primary text-center">
         <h1>{{ how_to.heading }}</h1>
         <p>{{ how_to.title }}</p>
     </div>
-
+    <br/>
     <div class="container">
         <ol>
-            {%- for bl in how_to.blocks %}
-            <button {% if bl.has_details -%}
-                 class="panel panel-primary"
-                 data-toggle="collapse"
-                 data-target="#details_{{ loop.index0 }}"
-                 {%- else -%}
-                 class="panel panel-default"
-                 {%- endif %}>
-                {#- <a href="#"
-                       class="close"
-                       data-toggle="collapse"
-                       data-target="#image_2"
-                       aria-label="close">
-                        <span style="padding: 10px;" class="glyphicon glyphicon-remove"></span>
-                    </a> #}
-                {%- for itm in bl.items %}
-                <li>
-                    {%- autoescape false %}
-                    {{ highlighted_text(itm) }}
-                    {%- endautoescape %}
-                </li>
-                {%- endfor %}
-                {#- <p class="alert alert-warning">
-                <strong><span class="glyphicon glyphicon-warning-sign"> </span></strong>
-                El limón marcado con 8 números debe rotar 1.2 veces aproximadamente. Eso quiere decir que la primera y a ultima fotografía deben tener los mismos números.
-                </p> #}
-                {%- if bl.has_details %}
-                <div id="details_{{ loop.index0 }}" class="collapse">
-                    {%- for dtl in bl.details %}
-
-                    {%- if dtl.type == 'image' %}
-                    <p>
-                        <img width="100%" src="{{ dtl.value }}" class="img-thumbnail" alt="{{ dtl.value }}">
-                    </p>
-                    {%- endif %}
-
-                    {%- if dtl.type == 'text' %}
-                    <p>
-                        {%- autoescape false %}
-                        {{ highlighted_text(dtl.value) }}
-                        {%- endautoescape %}
-                    </p>
-                    {%- endif %}
-
-                    {%- if dtl.type == 'warning' %}
-                    <p class="alert alert-warning">
-                        <strong><span class="glyphicon glyphicon-warning-sign"> </span></strong>
-                        {%- autoescape false %}
-                        {{ highlighted_text(dtl.value) }}
-                        {%- endautoescape %}
-                    </p>
-                    {%- endif %}
-
-                    {%- endfor %}
-                </div>
-
-                {%- endif %}
+        {%- for bl in how_to.blocks  %}
+            {%- if use_button -%}
+            <button  {{ generate_block_list_container_attributes(bl, loop.index)}}>
+                {{ generate_block(bl, loop.index) }}
             </button>
-            {%- endfor %}
+            {%- else -%}
+            <div  {{ generate_block_list_container_attributes(bl, loop.index)}}>
+                {{ generate_block(bl, loop.index) }}
+            </div>
+            {%- endif -%}
+        {%- endfor %}
         </ol>
     </div>
 {%- endblock %}
@@ -89,11 +100,21 @@
 {%- block scripts %}
 {{super()}}
     <script>
-        $(document).ready(function(){
-            $("#img1").click() {
-                //glyphicon glyphicon-eye-open
-                //glyphicon glyphicon-remove-circle
-            };
+    $(document).ready(function(){
+
+        $(".collapse").on('show.bs.collapse', function(){
+            $(this).find("img").each(function () {
+                var image = $(this);
+
+                if (image.attr('src') !== undefined)
+                    return;
+
+                var source = image.data('src');
+                $(image).attr('src', source);
+                image.removeData('src');
+            });
         });
+
+    });
     </script>
 {%- endblock %}
