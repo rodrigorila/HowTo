@@ -23,7 +23,7 @@
 
     <ol>
         {%- for bl in how_to.blocks %}
-        <div {% if bl.has_details -%}
+        <button {% if bl.has_details -%}
              class="panel panel-primary"
              data-toggle="collapse"
              data-target="#details_{{ loop.index0 }}"
@@ -79,7 +79,7 @@
             </div>
 
             {%- endif %}
-        </div>
+        </button>
         {%- endfor %}
     </ol>
 {%- endblock %}

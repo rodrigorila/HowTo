@@ -2,6 +2,12 @@
     padding: 10px;
 }
 
+ol button {
+    padding: 1ex 5ex 1ex 5ex;
+    text-align: left;
+    width: 100%;
+}
+
 @media only screen and (min-width: 768px) {
     /* For desktop: */
     .panel p img {
