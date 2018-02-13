@@ -1,0 +1,41 @@
+{%- extends "bootstrap/base.html" %}
+
+{% block html_attribs %}
+    {{super()}}
+    lang="es"
+{% endblock %}
+
+{% block metas %}
+    {{super()}}
+    <meta charset="UTF-8">
+{% endblock %}
+
+{%- block styles %}
+{{super()}}
+    <link rel="stylesheet" href="{{url_for('static', filename='stylesheets/main.css')}}">
+{%- endblock %}
+
+{%- block content %}
+
+    <div class="container bg-primary text-center">
+        <h1>How to's</h1>
+    </div>
+    <br/>
+    <div class="container">
+        <ul>
+        {%- for ht in how_tos  %}
+            <li>
+                <a href="/how_to/{{ ht.path }}">{{ ht.title }}</a>
+            </li>
+        {%- endfor %}
+        </ul>
+    </div>
+{%- endblock %}
+
+{%- block scripts %}
+{{super()}}
+    <script>
+    $(document).ready(function(){
+    });
+    </script>
+{%- endblock %}

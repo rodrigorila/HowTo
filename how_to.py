@@ -47,7 +47,7 @@ class HowTo:
                 matches = HowTo._brackets_to_html_.finditer(value)
 
                 index = 0
-                result = None
+                result = ""
 
                 for m in matches:
                     w1, w2 = m.span(0)
@@ -57,8 +57,9 @@ class HowTo:
                     highlighted = escape(value[p1: p2])
                     index = w2
 
-                    result = normal_text if result is None else result + normal_text
-                    result += Markup('<code>') + highlighted + Markup('</code>')
+                    result += normal_text + Markup('<code>') + highlighted + Markup('</code>')
+
+                result += value[index:len(value)]
 
                 return value if result is None else result
 

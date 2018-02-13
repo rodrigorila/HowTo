@@ -2,7 +2,6 @@
     padding: 10px;
 }
 
-
 ol button {
     padding: 1ex 5ex 1ex 5ex;
     text-align: left;
@@ -14,4 +13,16 @@ ol button {
     .panel p img {
         max-width: 85%;
     }
+}
+
+.heading {
+    color: white;
+    background-color: #4c789e;
+}
+.heading h1{
+    font-size: 1.2em;
+    text-shadow: 3px 2px black;
+}
+.heading p{
+    font-size: 1.0em;
 }
