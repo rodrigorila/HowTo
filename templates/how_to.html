@@ -83,7 +83,7 @@
     <div class="container">
         <ol>
         {%- for bl in how_to.blocks  %}
-            {%- if use_button -%}
+            {%- if use_button %}
             <button  {{ generate_block_list_container_attributes(bl, loop.index)}}>
                 {{ generate_block(bl, loop.index) }}
             </button>
