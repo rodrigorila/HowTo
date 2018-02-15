@@ -1,5 +1,5 @@
 .panel li, div p {
-    padding: 0.5ex;
+    padding: 0.1ex;
 }
 
 ol {
@@ -7,15 +7,20 @@ ol {
     -webkit-padding-start: 0px;
 }
 
-ol button, div {
-    padding: 1ex 5ex 1ex 5ex;
+.button-list {
+    padding: 1ex 1ex 1ex 3ex;
     text-align: left;
     width: 100%;
 }
 
+code {
+    color: #40ffff;
+    background-color: #969394;
+}
+
 @media only screen and (min-width: 768px) {
     /* For desktop: */
-    .panel p img {
+    .panel img {
         max-width: 85%;
     }
 }
@@ -24,10 +29,12 @@ ol button, div {
     color: white;
     background-color: #4c789e;
 }
+
 .heading h1{
     font-size: 1.2em;
     text-shadow: 3px 2px black;
 }
+
 .heading p{
     font-size: 1.0em;
 }

@@ -67,11 +67,11 @@
 
     {%- macro generate_block_list_container_attributes(block, block_id) -%}
         {%- if block.has_details -%}
-            class="panel panel-primary"
+            class="panel panel-primary button-list"
             data-toggle="collapse"
             data-target="#details_{{ block_id }}"
         {%- else -%}
-            class="panel panel-default"
+            class="panel panel-default button-list"
         {%- endif -%}
     {%- endmacro -%}
 
